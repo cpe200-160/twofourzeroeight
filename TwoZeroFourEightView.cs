@@ -57,6 +57,16 @@ namespace twozerofoureight
                     break;
             }
         }
+
+        /*private void UpdateScore(int[,] board)
+        {
+            int[] range = Enumerable.Range(0, 4).ToArray();
+            foreach(int i in range)
+            {
+
+            }
+        }*/
+
         private void UpdateBoard(int[,] board)
         {
             UpdateTile(lbl00,board[0, 0]);
