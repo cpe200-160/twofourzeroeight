@@ -58,12 +58,16 @@ namespace twozerofoureight
             }
         }
 
-        /*private void UpdateScore(int[,] board)
+        /*private void UpdateScore()
         {
+            realScore.Text = 0;
             int[] range = Enumerable.Range(0, 4).ToArray();
             foreach(int i in range)
             {
-
+                foreach (int j in range)
+                {
+                    realScore.Text += board[i, j];
+                }
             }
         }*/
 
@@ -85,6 +89,7 @@ namespace twozerofoureight
             UpdateTile(lbl31,board[3, 1]);
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
+            //UpdateScore();
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
