@@ -52,6 +52,9 @@ namespace twozerofoureight
             return input;
         }
 
+
+
+
         public void PerformDown()
         {
             int[] buffer;
@@ -260,5 +263,20 @@ namespace twozerofoureight
             board = Random(board);
             NotifyAll();
         }
+
+        /*public int sumScore()
+        {
+            int sum = 0;
+            int[] range = Enumerable.Range(0, 4).ToArray();
+            foreach (int i in range)
+            {
+                foreach (int j in range)
+                {
+                    sum += board[i, j];
+                }
+            }
+            return sum;
+        }*/
+
     }
 }

@@ -14,7 +14,9 @@ namespace twozerofoureight
     {
         Model model;
         Controller controller;
-       
+
+        int sum = 0;
+
         public TwoZeroFourEightView()
         {
             InitializeComponent();
@@ -58,18 +60,23 @@ namespace twozerofoureight
             }
         }
 
-        /*private void UpdateScore()
+        private void UpdateScore(Label l)
         {
-            realScore.Text = 0;
-            int[] range = Enumerable.Range(0, 4).ToArray();
-            foreach(int i in range)
+            l.Text = Convert.ToString(sum);
+        }
+
+        private void sumScore(int[,] board)
+        {
+            sum = 0;
+            for(int i = 0; i<4; i++)
             {
-                foreach (int j in range)
+                for (int j = 0; j < 4; j++)
                 {
-                    realScore.Text += board[i, j];
+                    sum += board[i, j];
                 }
             }
-        }*/
+
+        }
 
         private void UpdateBoard(int[,] board)
         {
@@ -89,7 +96,8 @@ namespace twozerofoureight
             UpdateTile(lbl31,board[3, 1]);
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
-            //UpdateScore();
+            sumScore(board);
+            UpdateScore(realScore);
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -112,5 +120,6 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+        
     }
 }
