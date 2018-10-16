@@ -12,6 +12,7 @@ namespace twozerofoureight
         protected int[,] board;
         protected Random rand;
 
+
         public TwoZeroFourEightModel() : this(4)
         {
             // default board size is 4 
@@ -264,19 +265,7 @@ namespace twozerofoureight
             NotifyAll();
         }
 
-        /*public int sumScore()
-        {
-            int sum = 0;
-            int[] range = Enumerable.Range(0, 4).ToArray();
-            foreach (int i in range)
-            {
-                foreach (int j in range)
-                {
-                    sum += board[i, j];
-                }
-            }
-            return sum;
-        }*/
+        
 
     }
 }

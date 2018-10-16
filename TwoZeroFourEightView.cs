@@ -15,7 +15,7 @@ namespace twozerofoureight
         Model model;
         Controller controller;
 
-        int sum = 0;
+        public int sum;
 
         public TwoZeroFourEightView()
         {
@@ -60,15 +60,15 @@ namespace twozerofoureight
             }
         }
 
-        private void UpdateScore(Label l)
+        private void UpdateScore(Label l, int i)
         {
-            l.Text = Convert.ToString(sum);
+            l.Text = Convert.ToString(i);
         }
 
         private void sumScore(int[,] board)
         {
             sum = 0;
-            for(int i = 0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
@@ -97,7 +97,7 @@ namespace twozerofoureight
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
             sumScore(board);
-            UpdateScore(realScore);
+            UpdateScore(realScore, sum);
         }
 
         private void btnLeft_Click(object sender, EventArgs e)

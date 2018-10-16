@@ -294,10 +294,10 @@
             this.realScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.realScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.realScore.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.realScore.Location = new System.Drawing.Point(359, 395);
+            this.realScore.Location = new System.Drawing.Point(339, 395);
             this.realScore.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.realScore.Name = "realScore";
-            this.realScore.Size = new System.Drawing.Size(71, 38);
+            this.realScore.Size = new System.Drawing.Size(107, 38);
             this.realScore.TabIndex = 22;
             this.realScore.Text = "0";
             // 
