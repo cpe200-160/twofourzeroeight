@@ -17,6 +17,21 @@ namespace twozerofoureight
         {
             // default board size is 4 
         }
+        public bool CheckGameOver()
+        {
+            bool checkgame = false;
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    if(board[i,j]==2048)
+                    {
+                        checkgame = true;
+                    }
+                }
+            }
+            return checkgame;
+        }
 
         public TwoZeroFourEightModel(int size)
         {
@@ -33,6 +48,103 @@ namespace twozerofoureight
             rand = new Random();
             // initialize board
             HandleChanges();
+        }
+        public  bool FullTable()
+        {
+            int count = 0;
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    if (board[i, j] > 0)
+                    {
+                        count++;
+                    }
+
+                }
+            }
+            if(count==16)
+            {
+                for (int i = 0; i < boardSize; i++)
+                {
+                    for (int j = 0; j < boardSize; j++)
+                    {
+                        if (i == 0 && j == 0)
+                        {
+                            if (board[i, j] == board[i, j + 1] || board[i, j] == board[i + 1, j])
+                            {
+                                return false;
+                            }
+                        }
+                        else if (i == 0 && j == 3)
+                        {
+                            if (board[i, j] == board[i, j - 1] || board[i, j] == board[i + 1, j])
+                            {
+                                return false;
+                            }
+                        }
+                        else if(i == 0 && j != 0 && j != 3) { 
+                            if (board[i, j] == board[i, j - 1] || board[i, j] == board[i, j + 1] || board[i, j] == board[i + 1, j])
+                            {
+                                return false;
+                            }
+                        }
+                        else if(j == 0 && i != 0 && i != 3) { 
+                            if (board[i, j] == board[i - 1, j] || board[i, j] == board[i + 1, j] || board[i, j] == board[i, j + 1])
+                            {
+                                return false;
+                            }
+                        }
+                        else if(i == 3 && j == 3) { 
+                            if (board[i, j] == board[i, j - 1] || board[i, j] == board[i - 1, j])
+                            {
+                                return false;
+                            }
+                        }
+                        else if(j == 3 && i!=3 && i != 0) { 
+                             if (board[i, j] == board[i - 1, j] || board[i, j] == board[i + 1,j] || board[i,j] == board[i, j-1])
+                            {
+                                return false;
+                            }
+                        }
+                        else if(i == 3 && j == 0){
+                            if (board[i,j] == board[i,j+1] || board[i,j] == board[i-1,j])
+                            {
+                                return false;
+                            }
+                        }
+                        else if(i == 3 && j != 0 && j != 3){
+                            if(board[i,j] == board[i,j-1] || board[i,j] == board[i,j+1] || board[i,j] == board[i-1,j])
+                            {
+                                return false;
+                            }
+
+                        }
+                        else
+                        {
+                            if(board[i,j] == board[i-1,j] || board[i,j] == board[i+1,j] || board[i,j] == board[i,j-1] || board[i,j] == board[i,j+1])
+                            {
+                                return false;
+                            }
+                        }
+
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+        public int GetScore()
+        {
+            int sum = 0;
+            for(int i =0; i< boardSize; i++)
+            {
+                for(int j=0; j<boardSize;j++)
+                {
+                    sum += board[i, j];
+                }
+            }
+            return sum;
         }
 
         public int[,] GetBoard()
@@ -103,6 +215,7 @@ namespace twozerofoureight
 
         public void PerformDown()
         {
+            if (CheckGameOver() == false) { 
             bool changed = false; // whether the board has changed
             foreach (int i in range)
             {
@@ -122,10 +235,12 @@ namespace twozerofoureight
                 }
             }
             HandleChanges(changed);
+            }
         }
 
         public void PerformUp()
         {
+            if(CheckGameOver() == false) { 
             bool changed = false; // whether the board has changed
             foreach (int i in range)
             {
@@ -145,10 +260,12 @@ namespace twozerofoureight
                 }
             }
             HandleChanges(changed);
+            }
         }
 
         public void PerformRight()
         {
+            if (CheckGameOver() == false) { 
             bool changed = false; // whether the board has changed
             foreach (int i in range)
             {
@@ -168,10 +285,12 @@ namespace twozerofoureight
                 }
             }
             HandleChanges(changed);
+            }
         }
 
         public void PerformLeft()
         {
+            if(CheckGameOver() == false) { 
             bool changed = false; // whether the board has changed
             foreach (int i in range)
             {
@@ -191,6 +310,7 @@ namespace twozerofoureight
                 }
             }
             HandleChanges(changed);
+            }
         }
     }
 }
