@@ -11,15 +11,12 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        public int score = 0;
+
 
         public TwoZeroFourEightModel() : this(4)
         {
             // default board size is 4 
-        }
-
-        public int[,] GetBoard()
-        {
-            return board;
         }
 
         public TwoZeroFourEightModel(int size)
@@ -37,9 +34,14 @@ namespace twozerofoureight
             NotifyAll();
         }
 
+        public int[,] GetBoard()
+        {
+            return board;
+        }
+
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (!isfull())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -67,7 +69,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift down
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
@@ -82,10 +84,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift down again
                 pos = 3;
                 foreach (int j in rangeX)
                 {
@@ -119,7 +122,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift up
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -134,10 +137,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift up again
                 pos = 0;
                 foreach (int j in range)
                 {
@@ -173,7 +177,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift right
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -188,10 +192,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift right again
                 pos = 3;
                 foreach (int j in rangeY)
                 {
@@ -224,7 +229,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[i, j] != 0)
@@ -239,6 +244,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -259,6 +265,46 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+        }
+        
+        public bool isfull()
+        {
+            for (int i=0; i<boardSize; i++)
+            {
+                for(int j=0; j<boardSize; j++)
+                {
+                    if(board[i,j] == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public bool Check()
+        {
+            for(int i=0; i<boardSize; i++)
+            {
+                for(int j=0; j<boardSize-1; j++)
+                {
+                    if(board[i,j] == board[i, j + 1])
+                    {
+                        return false;
+                    }
+                }
+            }
+            for (int i = 0; i < boardSize-1; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    if (board[i, j] == board[i+1, j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }
