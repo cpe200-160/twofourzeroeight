@@ -17,20 +17,20 @@ namespace twozerofoureight
         {
             // default board size is 4 
         }
-        public bool CheckGameOver()
+        public bool CheckGameOver()// method check gameover
         {
-            bool checkgame = false;
+            bool checkgame = false;//initial setting checkgame is false
             for (int i = 0; i < boardSize; i++)
-            {
+            {                                           //loop check grid in game table
                 for (int j = 0; j < boardSize; j++)
                 {
-                    if(board[i,j]==2048)
+                    if(board[i,j]==2048) //check if grid is 2048 
                     {
-                        checkgame = true;
+                        checkgame = true;//change checkgame if true
                     }
                 }
             }
-            return checkgame;
+            return checkgame;//return checkgame
         }
 
         public TwoZeroFourEightModel(int size)
@@ -49,11 +49,11 @@ namespace twozerofoureight
             // initialize board
             HandleChanges();
         }
-        public  bool FullTable()
+        public  bool FullTable()//method check gametable is full 
         {
-            int count = 0;
+            int count = 0;//declare count type integer to count all of grids in gametable
             for (int i = 0; i < boardSize; i++)
-            {
+            {                                       //loop check grid in game table
                 for (int j = 0; j < boardSize; j++)
                 {
                     if (board[i, j] > 0)
@@ -76,44 +76,44 @@ namespace twozerofoureight
                                 return false;
                             }
                         }
-                        else if (i == 0 && j == 3)
+                        else if (i == 0 && j == boardSize-1)
                         {
                             if (board[i, j] == board[i, j - 1] || board[i, j] == board[i + 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if(i == 0 && j != 0 && j != 3) { 
+                        else if(i == 0 && j != 0 && j != boardSize-1) { 
                             if (board[i, j] == board[i, j - 1] || board[i, j] == board[i, j + 1] || board[i, j] == board[i + 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if(j == 0 && i != 0 && i != 3) { 
+                        else if(j == 0 && i != 0 && i != boardSize-1) { 
                             if (board[i, j] == board[i - 1, j] || board[i, j] == board[i + 1, j] || board[i, j] == board[i, j + 1])
                             {
                                 return false;
                             }
                         }
-                        else if(i == 3 && j == 3) { 
+                        else if(i == boardSize-1 && j == boardSize-1) { 
                             if (board[i, j] == board[i, j - 1] || board[i, j] == board[i - 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if(j == 3 && i!=3 && i != 0) { 
+                        else if(j == boardSize-1 && i!=boardSize-1 && i != 0) { 
                              if (board[i, j] == board[i - 1, j] || board[i, j] == board[i + 1,j] || board[i,j] == board[i, j-1])
                             {
                                 return false;
                             }
                         }
-                        else if(i == 3 && j == 0){
+                        else if(i == boardSize-1 && j == 0){
                             if (board[i,j] == board[i,j+1] || board[i,j] == board[i-1,j])
                             {
                                 return false;
                             }
                         }
-                        else if(i == 3 && j != 0 && j != 3){
+                        else if(i == boardSize-1 && j != 0 && j != boardSize-1){
                             if(board[i,j] == board[i,j-1] || board[i,j] == board[i,j+1] || board[i,j] == board[i-1,j])
                             {
                                 return false;

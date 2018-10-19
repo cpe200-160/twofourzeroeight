@@ -32,7 +32,7 @@ namespace twozerofoureight
         {
             if (g)
             {
-                Gov.Text = "GameOver";
+                Gov.Text = "YOU WIN!!";
                 btnUp.Enabled = false;
                 btnDown.Enabled = false;
                 btnLeft.Enabled = false;
