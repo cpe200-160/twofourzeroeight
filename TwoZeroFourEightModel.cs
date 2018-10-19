@@ -11,6 +11,7 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        public int score;
 
         public TwoZeroFourEightModel() : this(4)
         {
@@ -22,9 +23,11 @@ namespace twozerofoureight
             boardSize = size;
             board = new int[boardSize, boardSize];
             var range = Enumerable.Range(0, boardSize);
-            foreach(int i in range) {
-                foreach(int j in range) {
-                    board[i,j] = 0;
+            foreach (int i in range)
+            {
+                foreach (int j in range)
+                {
+                    board[i, j] = 0;
                 }
             }
             rand = new Random();
@@ -39,6 +42,7 @@ namespace twozerofoureight
 
         private int[,] Random(int[,] input)
         {
+            int c = 0;
             while (true)
             {
                 int x = rand.Next(boardSize);
@@ -46,6 +50,14 @@ namespace twozerofoureight
                 if (board[x, y] == 0)
                 {
                     board[x, y] = 2;
+                    break;
+                }
+                if (board[x, y] != 0)
+                    {
+                    c++;
+                }
+                if(c == 16)
+                {
                     break;
                 }
             }
@@ -82,7 +94,9 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
+
                     }
                 }
                 // shift down again
@@ -134,6 +148,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -188,6 +203,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -239,6 +255,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -259,6 +276,56 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+        }
+        public string getscore()
+        {
+            return score.ToString();
+        }
+
+        public Boolean CheckFull(int[,] board)
+        {
+            int c = 0;
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j <boardSize; j++)
+                {
+                   if(board[i,j] != 0) c++;
+                }
+            }
+
+            if (c == 16)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckSameNum(int[,] board)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (board[i, j] == board[i + 1, j])
+                    {
+                        return true;
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (board[i, j] == board[i, j + 1])
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
         }
     }
 }
