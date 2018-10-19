@@ -23,11 +23,20 @@ namespace twozerofoureight
             controller = new TwoZeroFourEightController();
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            textBox1.KeyDown += new KeyEventHandler(KeyDown);
         }
 
         public void Notify(Model m)
         {
             UpdateBoard(((TwoZeroFourEightModel) m).GetBoard());
+            label1.Text = Convert.ToString(((TwoZeroFourEightModel)m).score);
+            if (((TwoZeroFourEightModel)m).isfull())
+            {
+                if (((TwoZeroFourEightModel)m).Check())
+                {
+                    MessageBox.Show("GAME OVER!\nSCORE >> " + Convert.ToString(((TwoZeroFourEightModel)m).score) + " <<");
+                }
+            }
         }
 
         private void UpdateTile(Label l, int i)
@@ -51,6 +60,18 @@ namespace twozerofoureight
                     break;
                 case 8:
                     l.BackColor = Color.Red;
+                    break;
+                case 16:
+                    l.BackColor = Color.Blue;
+                    break;
+                case 32:
+                    l.BackColor = Color.DarkViolet;
+                    break;
+                case 64:
+                    l.BackColor = Color.DarkOliveGreen;
+                    break;
+                case 128:
+                    l.BackColor = Color.DarkSlateGray;
                     break;
                 default:
                     l.BackColor = Color.Green;
@@ -77,6 +98,26 @@ namespace twozerofoureight
             UpdateTile(lbl33,board[3, 3]);
         }
 
+        private new void KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Left)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.UP);
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+            }
+        }
+
         private void btnLeft_Click(object sender, EventArgs e)
         {
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
@@ -97,5 +138,9 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+        private void TwoZeroFourEightView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

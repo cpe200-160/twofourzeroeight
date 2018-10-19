@@ -48,6 +48,8 @@
             this.btnUp = new System.Windows.Forms.Button();
             this.btnRight = new System.Windows.Forms.Button();
             this.btnDown = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbl00
@@ -260,7 +262,7 @@
             // 
             // btnLeft
             // 
-            this.btnLeft.Location = new System.Drawing.Point(85, 336);
+            this.btnLeft.Location = new System.Drawing.Point(158, 342);
             this.btnLeft.Name = "btnLeft";
             this.btnLeft.Size = new System.Drawing.Size(53, 45);
             this.btnLeft.TabIndex = 16;
@@ -270,7 +272,7 @@
             // 
             // btnUp
             // 
-            this.btnUp.Location = new System.Drawing.Point(140, 307);
+            this.btnUp.Location = new System.Drawing.Point(213, 313);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(53, 45);
             this.btnUp.TabIndex = 17;
@@ -280,7 +282,7 @@
             // 
             // btnRight
             // 
-            this.btnRight.Location = new System.Drawing.Point(195, 336);
+            this.btnRight.Location = new System.Drawing.Point(268, 342);
             this.btnRight.Name = "btnRight";
             this.btnRight.Size = new System.Drawing.Size(53, 45);
             this.btnRight.TabIndex = 18;
@@ -290,7 +292,7 @@
             // 
             // btnDown
             // 
-            this.btnDown.Location = new System.Drawing.Point(140, 371);
+            this.btnDown.Location = new System.Drawing.Point(213, 377);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(53, 45);
             this.btnDown.TabIndex = 19;
@@ -298,11 +300,29 @@
             this.btnDown.UseVisualStyleBackColor = true;
             this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Monospac821 BT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(30, 348);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 39);
+            this.label1.TabIndex = 20;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(442, 118);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(10, 20);
+            this.textBox1.TabIndex = 21;
+            // 
             // TwoZeroFourEightView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 428);
+            this.ClientSize = new System.Drawing.Size(336, 428);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDown);
             this.Controls.Add(this.btnRight);
             this.Controls.Add(this.btnUp);
@@ -325,7 +345,9 @@
             this.Controls.Add(this.lbl00);
             this.Name = "TwoZeroFourEightView";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.TwoZeroFourEightView_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -351,6 +373,8 @@
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnRight;
         private System.Windows.Forms.Button btnDown;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
