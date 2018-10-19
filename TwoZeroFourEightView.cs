@@ -70,10 +70,13 @@ namespace twozerofoureight
                     l.BackColor = Color.Orange;
                     break;
                 case 512:
-                    l.BackColor = Color.Red;
+                    l.BackColor = Color.Tomato;
+                    break;
+                case 1024:
+                    l.BackColor = Color.Firebrick;
                     break;
                 case 2048:
-                    l.BackColor = Color.MediumSeaGreen;
+                    l.BackColor = Color.Red;
                     break;                  
                  
             }
