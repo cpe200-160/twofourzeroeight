@@ -47,13 +47,13 @@ namespace twozerofoureight
                     l.BackColor = Color.DarkGray;
                     break;
                 case 4:
-                    l.BackColor = Color.Orange;
+                    l.BackColor = Color.LightBlue;
                     break;
                 case 8:
-                    l.BackColor = Color.Red;
+                    l.BackColor = Color.LightSeaGreen;
                     break;
                 default:
-                    l.BackColor = Color.Green;
+                    l.BackColor = Color.Violet;
                     break;
             }
         }
@@ -75,6 +75,15 @@ namespace twozerofoureight
             UpdateTile(lbl31,board[3, 1]);
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
+            textBox1.Text = ((TwoZeroFourEightModel)model).getscore();
+            if(((TwoZeroFourEightModel)model).CheckFull(board))
+            {
+                if(!(((TwoZeroFourEightModel)model).CheckSameNum(board)))
+                {
+                    MessageBox.Show("** Game Over! **");
+                }
+            }
+
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -96,6 +105,33 @@ namespace twozerofoureight
         {
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Right))
+            {
+                btnRight.PerformClick();
+                return true;
+            }
+            if (keyData == (Keys.Left))
+            {
+                btnLeft.PerformClick();
+                return true;
+            }
+            if (keyData == (Keys.Up))
+            {
+                btnUp.PerformClick();
+                return true;
+            }
+            if (keyData == (Keys.Down))
+            {
+                btnDown.PerformClick();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+
 
     }
 }
