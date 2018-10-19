@@ -26,7 +26,7 @@ namespace twozerofoureight
                 {
                     case LEFT:
                         m.PerformLeft();
-                        break; 
+                        break;
                     case RIGHT:
                         m.PerformRight();
                         break;

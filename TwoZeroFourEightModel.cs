@@ -11,15 +11,13 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        protected bool IsOver = false;
+        protected string Status = "Still Going??";
+        protected int ScoreBoard = 0;
 
         public TwoZeroFourEightModel() : this(4)
         {
             // default board size is 4 
-        }
-
-        public int[,] GetBoard()
-        {
-            return board;
         }
 
         public TwoZeroFourEightModel(int size)
@@ -27,14 +25,28 @@ namespace twozerofoureight
             boardSize = size;
             board = new int[boardSize, boardSize];
             var range = Enumerable.Range(0, boardSize);
-            foreach(int i in range) {
-                foreach(int j in range) {
-                    board[i,j] = 0;
+            foreach (int i in range)
+            {
+                foreach (int j in range)
+                {
+                    board[i, j] = 0;
                 }
             }
             rand = new Random();
             board = Random(board);
             NotifyAll();
+        }
+        public string StatusText()
+        {
+            return Status;
+        }
+        public string GetScore()
+        {
+            return (ScoreBoard).ToString();
+        }
+        public int[,] GetBoard()
+        {
+            return board;
         }
 
         private int[,] Random(int[,] input)
@@ -47,6 +59,48 @@ namespace twozerofoureight
                 {
                     board[x, y] = 2;
                     break;
+                }
+                else if (board[x, y] != 0)
+                {
+                    int Isfull = 0;
+                    int[,] Check;
+                    Check = GetBoard();
+                    var Range = Enumerable.Range(0, boardSize);
+                    foreach (int i in Range)
+                    {
+                        foreach (int j in Range)
+                        {
+                            if (Check[i, j] != 0)
+                            {
+                                Isfull++;
+                            }
+                        }
+                    }
+                    if (Isfull == 16)
+                    {
+                        var CheckRange = Enumerable.Range(0, boardSize);
+                        Check = GetBoard();
+                        foreach (int i in CheckRange)
+                        {
+                            foreach (int j in CheckRange)
+                            {
+                                try
+                                {
+                                    if (Check[i, j] == Check[i, j - 1] || Check[i, j] == Check[i, j + 1] || Check[i, j] == Check[i - 1, j] || Check[i, j] == Check[i + 1, j])
+                                    {
+                                        IsOver = false;
+                                    }
+                                    else IsOver = true;
+                                }
+                                catch (IndexOutOfRangeException)
+                                {
+
+                                }
+                            }
+                        }
+                        if (IsOver == true) Status = "GAME OVER";
+                        break;
+                    }
                 }
             }
             return input;
@@ -67,7 +121,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift down
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
@@ -82,10 +136,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        ScoreBoard += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift down again
                 pos = 3;
                 foreach (int j in rangeX)
                 {
@@ -119,7 +174,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift up
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -134,10 +189,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        ScoreBoard += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift up again
                 pos = 0;
                 foreach (int j in range)
                 {
@@ -173,7 +229,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift right
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -188,10 +244,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        ScoreBoard += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift right again
                 pos = 3;
                 foreach (int j in rangeY)
                 {
@@ -224,7 +281,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[i, j] != 0)
@@ -239,6 +296,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        ScoreBoard += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
