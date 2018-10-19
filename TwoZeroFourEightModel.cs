@@ -11,6 +11,7 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        public int score = 0;
 
         public TwoZeroFourEightModel() : this(4)
         {
@@ -39,7 +40,7 @@ namespace twozerofoureight
 
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (!BlockFull())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -82,6 +83,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -134,6 +136,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -188,6 +191,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -239,6 +243,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -259,6 +264,63 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+        }
+
+        public bool BlockFull()
+        {
+            int count = 0;
+            foreach (int block in board)
+            {
+                if (block > 0)
+                {
+                    count++;
+                }
+            }
+            if (count == 16) return true;
+            else return false;
+        }
+
+        public bool GameOver()
+        {
+            int count = 0;
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 4; y++)
+                {
+                    if (y != 3)
+                    {
+                        if (board[x, y] != board[x, y + 1] && board[x, y] != board[x + 1, y])
+                        {
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        if (board[x, y] != board[x + 1, y])
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+
+            if (count >= 12)
+                {
+                    if (BlockFull())
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+
+        public string Allscore()
+        {
+            return score.ToString();
         }
     }
 }

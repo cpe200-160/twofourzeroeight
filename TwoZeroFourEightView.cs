@@ -25,9 +25,20 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
         }
 
+        private void EndGame()
+        {
+            MessageBox.Show("GAME OVER!!\nPlay again!!!!");
+        }
+
         public void Notify(Model m)
         {
             UpdateBoard(((TwoZeroFourEightModel) m).GetBoard());
+            ScoreBlock.Text = ((TwoZeroFourEightModel)model).Allscore();
+            if (((TwoZeroFourEightModel)model).GameOver())
+            {
+                EndGame();
+            }
+
         }
 
         private void UpdateTile(Label l, int i)
@@ -41,17 +52,43 @@ namespace twozerofoureight
             switch (i)
             {
                 case 0:
-                    l.BackColor = Color.Gray;
+                    l.BackColor = Color.Thistle;
                     break;
                 case 2:
-                    l.BackColor = Color.DarkGray;
+                    l.BackColor = Color.MediumVioletRed;
                     break;
                 case 4:
-                    l.BackColor = Color.Orange;
+                    l.BackColor = Color.MediumOrchid;
                     break;
                 case 8:
-                    l.BackColor = Color.Red;
+                    l.BackColor = Color.MediumPurple;
                     break;
+                case 16:
+                    l.BackColor = Color.CornflowerBlue;
+                    break;
+                case 32:
+                    l.BackColor = Color.SkyBlue;
+                    break;
+                case 64:
+                    l.BackColor = Color.Turquoise;
+                    break;
+                case 128:
+                    l.BackColor = Color.MediumAquamarine;
+                    break;
+                case 256:
+                    l.BackColor = Color.BurlyWood;
+                    break;
+                case 512:
+                    l.BackColor = Color.LightSalmon;
+                    break;
+                case 1024:
+                    l.BackColor = Color.LightCoral;
+                    break;
+                case 2048:
+                    l.BackColor = Color.IndianRed;
+                    break;
+
+
                 default:
                     l.BackColor = Color.Green;
                     break;
@@ -97,5 +134,32 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+
+        private void btnX_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            e.IsInputKey = true;
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    btnUp.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case Keys.Down:
+                    btnDown.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+                case Keys.Left:
+                    btnLeft.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                case Keys.Right:
+                    btnRight.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+            }
+            
+        }
+
+        
     }
 }
