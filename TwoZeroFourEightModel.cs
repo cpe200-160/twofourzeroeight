@@ -11,15 +11,11 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        public bool isEnd = false;
 
         public TwoZeroFourEightModel() : this(4)
         {
             // default board size is 4 
-        }
-
-        public int[,] GetBoard()
-        {
-            return board;
         }
 
         public TwoZeroFourEightModel(int size)
@@ -27,9 +23,11 @@ namespace twozerofoureight
             boardSize = size;
             board = new int[boardSize, boardSize];
             var range = Enumerable.Range(0, boardSize);
-            foreach(int i in range) {
-                foreach(int j in range) {
-                    board[i,j] = 0;
+            foreach (int i in range)
+            {
+                foreach (int j in range)
+                {
+                    board[i, j] = 0;
                 }
             }
             rand = new Random();
@@ -37,9 +35,14 @@ namespace twozerofoureight
             NotifyAll();
         }
 
+        public int[,] GetBoard()
+        {
+            return board;
+        }
+
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (!Full())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -67,7 +70,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift down
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
@@ -85,7 +88,7 @@ namespace twozerofoureight
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift down again
                 pos = 3;
                 foreach (int j in rangeX)
                 {
@@ -103,6 +106,7 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (Full()) GameOver();
         }
 
         public void PerformUp()
@@ -119,7 +123,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift up
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -137,7 +141,7 @@ namespace twozerofoureight
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift up again
                 pos = 0;
                 foreach (int j in range)
                 {
@@ -155,6 +159,7 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (Full()) GameOver();
         }
 
         public void PerformRight()
@@ -173,7 +178,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift right
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -191,7 +196,7 @@ namespace twozerofoureight
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift right again
                 pos = 3;
                 foreach (int j in rangeY)
                 {
@@ -209,6 +214,7 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (Full()) GameOver();
         }
 
         public void PerformLeft()
@@ -224,7 +230,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[i, j] != 0)
@@ -259,6 +265,73 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (Full()) GameOver();
+        }
+
+        //Calcalate all number on board
+        public int ShowScore()
+        {
+            int score = 0;
+            foreach (int element in board)
+            {
+                score += element;
+            }
+            return score;
+        }
+
+        public bool Full()
+        {
+            int count = 0;
+            foreach (int element in board)
+            {
+                if (element > 0)
+                {
+                    count++;
+                }
+            }
+            if (count == 16)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void GameOver()
+        {
+            int count = 0;
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 4; y++)
+                {
+                    if (y != 3)
+                    {
+                        if (board[x, y] != board[x, y + 1] && board[x, y] != board[x + 1, y])
+                        {
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        if (board[x, y] != board[x + 1, y])
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            if (count == 12)
+            {
+                isEnd = true;
+            }
+            else
+            {
+                isEnd = false;
+            }
+
         }
     }
 }
+

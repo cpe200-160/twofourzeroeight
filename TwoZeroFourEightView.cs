@@ -28,6 +28,8 @@ namespace twozerofoureight
         public void Notify(Model m)
         {
             UpdateBoard(((TwoZeroFourEightModel) m).GetBoard());
+            scoreBox.Text = Convert.ToString(((TwoZeroFourEightModel)m).ShowScore());
+            if (((TwoZeroFourEightModel)m).isEnd) GameOver();
         }
 
         private void UpdateTile(Label l, int i)
@@ -44,17 +46,39 @@ namespace twozerofoureight
                     l.BackColor = Color.Gray;
                     break;
                 case 2:
-                    l.BackColor = Color.DarkGray;
+                    l.BackColor = Color.LightSalmon;
                     break;
                 case 4:
-                    l.BackColor = Color.Orange;
+                    l.BackColor = Color.Salmon;
                     break;
                 case 8:
+                    l.BackColor = Color.DarkSalmon;
+                    break;
+                case 16:
+                    l.BackColor = Color.RosyBrown;
+                    break;
+                case 32:
+                    l.BackColor = Color.SandyBrown;
+                    break;
+                case 64:
+                    l.BackColor = Color.LightCoral;
+                    break;
+                case 128:
+                    l.BackColor = Color.Coral;
+                    break;
+                case 256:
+                    l.BackColor = Color.Orange;
+                    break;
+                case 512:
+                    l.BackColor = Color.Tomato;
+                    break;
+                case 1024:
+                    l.BackColor = Color.Firebrick;
+                    break;
+                case 2048:
                     l.BackColor = Color.Red;
-                    break;
-                default:
-                    l.BackColor = Color.Green;
-                    break;
+                    break;                  
+                 
             }
         }
         private void UpdateBoard(int[,] board)
@@ -97,5 +121,36 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+        //play by using arrow key on keyboard
+        private void btn_KeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            e.IsInputKey = true;
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    btnUp.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case Keys.Down:
+                    btnDown.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+                case Keys.Left:
+                    btnLeft.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                case Keys.Right:
+                    btnRight.Focus();
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+            }
+        }
+
+        //Game over screen
+        private void GameOver()
+        {
+            MessageBox.Show("GAME OVER!!!");
+        }
     }
 }
+
