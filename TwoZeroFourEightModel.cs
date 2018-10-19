@@ -21,7 +21,7 @@ namespace twozerofoureight
         {
             bool checkgame = false;//initial setting checkgame is false
             for (int i = 0; i < boardSize; i++)
-            {                                           //loop check grid in game table
+            {                                           //loop check all of grids in game table
                 for (int j = 0; j < boardSize; j++)
                 {
                     if(board[i,j]==2048) //check if grid is 2048 
@@ -53,74 +53,81 @@ namespace twozerofoureight
         {
             int count = 0;//declare count type integer to count all of grids in gametable
             for (int i = 0; i < boardSize; i++)
-            {                                       //loop check grid in game table
+            {                                       //loop check all of grids in game table
                 for (int j = 0; j < boardSize; j++)
                 {
                     if (board[i, j] > 0)
                     {
-                        count++;
+                        count++; // count every times when visit each grid
                     }
 
                 }
             }
-            if(count==16)
+            if(count==16) // when count traversing all of grid in game table
             {
                 for (int i = 0; i < boardSize; i++)
-                {
+                {                                       //loop check all of grids in game table
                     for (int j = 0; j < boardSize; j++)
                     {
-                        if (i == 0 && j == 0)
+                        if (i == 0 && j == 0) // case that check at up-left grid corner
                         {
+           
                             if (board[i, j] == board[i, j + 1] || board[i, j] == board[i + 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if (i == 0 && j == boardSize-1)
+                        else if (i == 0 && j == boardSize-1) // case that check at top-right grid corner
                         {
                             if (board[i, j] == board[i, j - 1] || board[i, j] == board[i + 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if(i == 0 && j != 0 && j != boardSize-1) { 
+                        else if(i == 0 && j != 0 && j != boardSize-1) // case that check at the middle of the fist row 
+                        { 
                             if (board[i, j] == board[i, j - 1] || board[i, j] == board[i, j + 1] || board[i, j] == board[i + 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if(j == 0 && i != 0 && i != boardSize-1) { 
+                        else if(j == 0 && i != 0 && i != boardSize-1) // case that check at the first collum 
+                        { 
                             if (board[i, j] == board[i - 1, j] || board[i, j] == board[i + 1, j] || board[i, j] == board[i, j + 1])
                             {
                                 return false;
                             }
                         }
-                        else if(i == boardSize-1 && j == boardSize-1) { 
+                        else if(i == boardSize-1 && j == boardSize-1) // case that check at buttom-right grid corner
+                        { 
                             if (board[i, j] == board[i, j - 1] || board[i, j] == board[i - 1, j])
                             {
                                 return false;
                             }
                         }
-                        else if(j == boardSize-1 && i!=boardSize-1 && i != 0) { 
+                        else if(j == boardSize-1 && i!=boardSize-1 && i != 0) // case that check at the fourth collum 
+                        { 
                              if (board[i, j] == board[i - 1, j] || board[i, j] == board[i + 1,j] || board[i,j] == board[i, j-1])
                             {
                                 return false;
                             }
                         }
-                        else if(i == boardSize-1 && j == 0){
+                        else if(i == boardSize-1 && j == 0) // case that check at buttom-left grid corner 
+                        {
                             if (board[i,j] == board[i,j+1] || board[i,j] == board[i-1,j])
                             {
                                 return false;
                             }
                         }
-                        else if(i == boardSize-1 && j != 0 && j != boardSize-1){
+                        else if(i == boardSize-1 && j != 0 && j != boardSize-1) // case that check at the fourth row 
+                        {
                             if(board[i,j] == board[i,j-1] || board[i,j] == board[i,j+1] || board[i,j] == board[i-1,j])
                             {
                                 return false;
                             }
 
                         }
-                        else
+                        else // other cases 
                         {
                             if(board[i,j] == board[i-1,j] || board[i,j] == board[i+1,j] || board[i,j] == board[i,j-1] || board[i,j] == board[i,j+1])
                             {
@@ -134,17 +141,17 @@ namespace twozerofoureight
             }
             return false;
         }
-        public int GetScore()
+        public int GetScore() // method get score 
         {
-            int sum = 0;
+            int sum = 0; // declare sum type integer to count score
             for(int i =0; i< boardSize; i++)
-            {
-                for(int j=0; j<boardSize;j++)
+            {                                   //loop check all of grids in game table
+                for (int j=0; j<boardSize;j++)
                 {
-                    sum += board[i, j];
+                    sum += board[i, j]; // count score
                 }
             }
-            return sum;
+            return sum; // return score
         }
 
         public int[,] GetBoard()

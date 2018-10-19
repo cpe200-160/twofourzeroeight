@@ -24,11 +24,13 @@ namespace twozerofoureight
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
         }
+        //method update your score
         private void UpdateScore(int score)
         {
             lblscore.Text = Convert.ToString(score);
         }
-        private void UpdateGameOver(bool g)
+        //method update game over
+        private void UpdateGameOver(bool g)    
         {
             if (g)
             {
@@ -39,6 +41,7 @@ namespace twozerofoureight
                 btnRight.Enabled = false;
             }
         }
+        //method update table is full
         private void UpdateFullTable(bool g)
         {
             if (g)
@@ -53,9 +56,9 @@ namespace twozerofoureight
         public void Notify(Model m)
         {
             UpdateBoard(((TwoZeroFourEightModel)m).GetBoard());
-            UpdateScore(((TwoZeroFourEightModel)m).GetScore());
-            UpdateGameOver(((TwoZeroFourEightModel)m).CheckGameOver());
-            UpdateFullTable(((TwoZeroFourEightModel)m).FullTable());
+            UpdateScore(((TwoZeroFourEightModel)m).GetScore());//show score while playing
+            UpdateGameOver(((TwoZeroFourEightModel)m).CheckGameOver());//show "YOU WIN!!" when you win the game
+            UpdateFullTable(((TwoZeroFourEightModel)m).FullTable());//show "FULLTABLE 555" when yor table are full
         }
 
         private void UpdateTile(Label l, int i)
@@ -127,6 +130,7 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+        //method press WSAD button
         private void TwoZeroFourEightView_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyData)
@@ -152,7 +156,7 @@ namespace twozerofoureight
                     break;
             }
         }
-
+        //method press up  arrow on keyboard
         private void btnRight_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)
@@ -165,7 +169,7 @@ namespace twozerofoureight
                     break;
             }
         }
-
+        // method press left arrow on keyboard
         private void btnLeft_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)
@@ -178,7 +182,7 @@ namespace twozerofoureight
                     break;
             }
         }
-
+        //method press up arrow on keyboard
         private void btnUp_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)
@@ -191,7 +195,7 @@ namespace twozerofoureight
                     break;
             }
         }
-
+        //method press down arrow on keyboard
         private void btnDown_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)
