@@ -23,7 +23,19 @@ namespace twozerofoureight
             controller = new TwoZeroFourEightController();
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            // Form ScoreBoard = new Form();
+            //ScoreBoard.IsMdiContainer = true;
+            // ScoreBoard.Show();
         }
+        public string ScoreScreen(Model m)
+        {
+            return ((TwoZeroFourEightModel)m).GetScore();
+        }
+        public string StatusScreen(Model m)
+        {
+            return ((TwoZeroFourEightModel)m).StatusText();
+        }
+
 
         public void Notify(Model m)
         {
@@ -32,6 +44,8 @@ namespace twozerofoureight
 
         private void UpdateTile(Label l, int i)
         {
+            Status.Text = StatusScreen(model);
+            ScoreBoard.Text = ScoreScreen(model);
             if (i != 0)
             {
                 l.Text = Convert.ToString(i);
@@ -79,25 +93,46 @@ namespace twozerofoureight
             UpdateTile(lbl33, board[3, 3]);
         }
 
-        private void btnLeft_Click(object sender, EventArgs e)
+            /* private void btnLeft_Click(object sender, EventArgs e)
+             {
+                 controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+             }
+
+             private void btnRight_Click(object sender, EventArgs e)
+             {
+                 controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+             }
+
+             private void btnUp_Click(object sender, EventArgs e)
+             {
+                 controller.ActionPerformed(TwoZeroFourEightController.UP);
+             }
+
+             private void btnDown_Click(object sender, EventArgs e)
+             {
+                 controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+             }*/
+             
+        private void BtnArrow_KeyDown(object sender, KeyEventArgs e)
         {
-            controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+                case Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                case Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+
+            }
         }
 
-        private void btnRight_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
-        }
-
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.UP);
-        }
-
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.DOWN);
-        }
-
+        
     }
 }
