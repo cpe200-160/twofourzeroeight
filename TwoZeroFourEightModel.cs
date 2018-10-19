@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace twozerofoureight
 {
@@ -11,15 +12,15 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        protected int score = 0;      
 
         public TwoZeroFourEightModel() : this(4)
         {
-            // default board size is 4 
+              // default board size is 4 
         }
-
-        public int[,] GetBoard()
+        public string UpdateScore()
         {
-            return board;
+            return score.ToString();
         }
 
         public TwoZeroFourEightModel(int size)
@@ -37,9 +38,27 @@ namespace twozerofoureight
             NotifyAll();
         }
 
+        public bool isfull()
+        {
+            for(int i = 0; i < boardSize; i++)
+            {
+                for(int j=0; j < boardSize; j++)
+                {
+                    if (board[i, j] == 0) return false;
+                }
+            }
+            GameOver();
+            return true;
+        }
+
+        public int[,] GetBoard()
+        {
+            return board;
+        }
+
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (!isfull())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -50,6 +69,27 @@ namespace twozerofoureight
                 }
             }
             return input;
+  
+        }
+
+        public void GameOver()
+        {
+            bool a=true;
+            for (int i = 0; i < boardSize-1; i++)
+            {
+                for (int j = 0; j < boardSize-1; j++)
+                {
+                    if (board[i, j] == board[i, j + 1]|| board[j, i] == board[j + 1, i])
+                            a = false;
+                }
+            }
+            for(int i = 0; i < 3; i++)
+            {
+                if (board[i, 3] == board[i + 1, 3]||board[3,i]==board[3,i+1])
+                    a = false;
+            }
+             if (a)
+                MessageBox.Show("GAME OVER");
         }
 
         public void PerformDown()
@@ -67,12 +107,13 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift down
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
                     {
                         buffer[pos] = board[j, i];
+                        
                         pos++;
                     }
                 }
@@ -82,10 +123,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift down again
                 pos = 3;
                 foreach (int j in rangeX)
                 {
@@ -119,7 +161,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift up
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -134,10 +176,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift up again
                 pos = 0;
                 foreach (int j in range)
                 {
@@ -173,7 +216,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift right
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -188,10 +231,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift right again
                 pos = 3;
                 foreach (int j in rangeY)
                 {
@@ -224,7 +268,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[i, j] != 0)
@@ -239,6 +283,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
