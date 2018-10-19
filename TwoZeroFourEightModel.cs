@@ -11,6 +11,7 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        public int score = 0;
 
         public TwoZeroFourEightModel() : this(4)
         {
@@ -37,9 +38,23 @@ namespace twozerofoureight
             return board;
         }
 
+        public int GetScore()
+        {
+            score = 0;
+           for(int i = 0; i < 4; i++)
+            {
+                for(int j = 0; j < 4; j++)
+                {
+                    score += board[i, j];
+                }
+            }
+
+            return score;
+        }
+
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (!isFull())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -54,211 +69,278 @@ namespace twozerofoureight
 
         public void PerformDown()
         {
-            int[] buffer;
-            int pos;
-            int[] rangeX = Enumerable.Range(0, boardSize).ToArray();
-            int[] rangeY = Enumerable.Range(0, boardSize).ToArray();
-            Array.Reverse(rangeY);
-            foreach (int i in rangeX)
+            if (!isOver())
             {
-                pos = 0;
-                buffer = new int[4];
-                foreach (int k in rangeX)
+                int[] buffer;
+                int pos;
+                int[] rangeX = Enumerable.Range(0, boardSize).ToArray();
+                int[] rangeY = Enumerable.Range(0, boardSize).ToArray();
+                Array.Reverse(rangeY);
+                foreach (int i in rangeX)
                 {
-                    buffer[k] = 0;
-                }
-                // shift down
-                foreach (int j in rangeY)
-                {
-                    if (board[j, i] != 0)
+                    pos = 0;
+                    buffer = new int[4];
+                    foreach (int k in rangeX)
                     {
-                        buffer[pos] = board[j, i];
-                        pos++;
+                        buffer[k] = 0;
+                    }
+                    // shift down
+                    foreach (int j in rangeY)
+                    {
+                        if (board[j, i] != 0)
+                        {
+                            buffer[pos] = board[j, i];
+                            pos++;
+                        }
+                    }
+                    // check duplicate
+                    foreach (int j in rangeX)
+                    {
+                        if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
+                        {
+                            buffer[j - 1] *= 2;
+                            buffer[j] = 0;
+                        }
+                    }
+                    // shift down again
+                    pos = 3;
+                    foreach (int j in rangeX)
+                    {
+                        if (buffer[j] != 0)
+                        {
+                            board[pos, i] = buffer[j];
+                            pos--;
+                        }
+                    }
+                    // copy back
+                    for (int k = pos; k != -1; k--)
+                    {
+                        board[k, i] = 0;
                     }
                 }
-                // check duplicate
-                foreach (int j in rangeX)
-                {
-                    if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
-                    {
-                        buffer[j - 1] *= 2;
-                        buffer[j] = 0;
-                    }
-                }
-                // shift down again
-                pos = 3;
-                foreach (int j in rangeX)
-                {
-                    if (buffer[j] != 0)
-                    {
-                        board[pos, i] = buffer[j];
-                        pos--;
-                    }
-                }
-                // copy back
-                for (int k = pos; k != -1; k--)
-                {
-                    board[k, i] = 0;
-                }
+
+                board = Random(board);
+                NotifyAll();
             }
-            board = Random(board);
-            NotifyAll();
+            else
+            {
+                
+            }
         }
 
         public void PerformUp()
         {
-            int[] buffer;
-            int pos;
-
-            int[] range = Enumerable.Range(0, boardSize).ToArray();
-            foreach (int i in range)
+            if (!isOver())
             {
-                pos = 0;
-                buffer = new int[4];
-                foreach (int k in range)
+                int[] buffer;
+                int pos;
+
+                int[] range = Enumerable.Range(0, boardSize).ToArray();
+                foreach (int i in range)
                 {
-                    buffer[k] = 0;
-                }
-                // shift up
-                foreach (int j in range)
-                {
-                    if (board[j, i] != 0)
+                    pos = 0;
+                    buffer = new int[4];
+                    foreach (int k in range)
                     {
-                        buffer[pos] = board[j, i];
-                        pos++;
+                        buffer[k] = 0;
+                    }
+                    // shift up
+                    foreach (int j in range)
+                    {
+                        if (board[j, i] != 0)
+                        {
+                            buffer[pos] = board[j, i];
+                            pos++;
+                        }
+                    }
+                    // check duplicate
+                    foreach (int j in range)
+                    {
+                        if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
+                        {
+                            buffer[j - 1] *= 2;
+                            buffer[j] = 0;
+                        }
+                    }
+                    // shift up again
+                    pos = 0;
+                    foreach (int j in range)
+                    {
+                        if (buffer[j] != 0)
+                        {
+                            board[pos, i] = buffer[j];
+                            pos++;
+                        }
+                    }
+                    // copy back
+                    for (int k = pos; k != boardSize; k++)
+                    {
+                        board[k, i] = 0;
                     }
                 }
-                // check duplicate
-                foreach (int j in range)
-                {
-                    if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
-                    {
-                        buffer[j - 1] *= 2;
-                        buffer[j] = 0;
-                    }
-                }
-                // shift up again
-                pos = 0;
-                foreach (int j in range)
-                {
-                    if (buffer[j] != 0)
-                    {
-                        board[pos, i] = buffer[j];
-                        pos++;
-                    }
-                }
-                // copy back
-                for (int k = pos; k != boardSize; k++)
-                {
-                    board[k, i] = 0;
-                }
+                board = Random(board);
+                NotifyAll();
             }
-            board = Random(board);
-            NotifyAll();
+            else
+            {
+
+            }
+            
         }
 
         public void PerformRight()
         {
-            int[] buffer;
-            int pos;
-
-            int[] rangeX = Enumerable.Range(0, boardSize).ToArray();
-            int[] rangeY = Enumerable.Range(0, boardSize).ToArray();
-            Array.Reverse(rangeX);
-            foreach (int i in rangeY)
+            if (!isOver())
             {
-                pos = 0;
-                buffer = new int[4];
-                foreach (int k in rangeY)
+                int[] buffer;
+                int pos;
+
+                int[] rangeX = Enumerable.Range(0, boardSize).ToArray();
+                int[] rangeY = Enumerable.Range(0, boardSize).ToArray();
+                Array.Reverse(rangeX);
+                foreach (int i in rangeY)
                 {
-                    buffer[k] = 0;
-                }
-                // shift right
-                foreach (int j in rangeX)
-                {
-                    if (board[i, j] != 0)
+                    pos = 0;
+                    buffer = new int[4];
+                    foreach (int k in rangeY)
                     {
-                        buffer[pos] = board[i, j];
-                        pos++;
+                        buffer[k] = 0;
+                    }
+                    // shift right
+                    foreach (int j in rangeX)
+                    {
+                        if (board[i, j] != 0)
+                        {
+                            buffer[pos] = board[i, j];
+                            pos++;
+                        }
+                    }
+                    // check duplicate
+                    foreach (int j in rangeY)
+                    {
+                        if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
+                        {
+                            buffer[j - 1] *= 2;
+                            buffer[j] = 0;
+                        }
+                    }
+                    // shift right again
+                    pos = 3;
+                    foreach (int j in rangeY)
+                    {
+                        if (buffer[j] != 0)
+                        {
+                            board[i, pos] = buffer[j];
+                            pos--;
+                        }
+                    }
+                    // copy back
+                    for (int k = pos; k != -1; k--)
+                    {
+                        board[i, k] = 0;
                     }
                 }
-                // check duplicate
-                foreach (int j in rangeY)
-                {
-                    if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
-                    {
-                        buffer[j - 1] *= 2;
-                        buffer[j] = 0;
-                    }
-                }
-                // shift right again
-                pos = 3;
-                foreach (int j in rangeY)
-                {
-                    if (buffer[j] != 0)
-                    {
-                        board[i, pos] = buffer[j];
-                        pos--;
-                    }
-                }
-                // copy back
-                for (int k = pos; k != -1; k--)
-                {
-                    board[i, k] = 0;
-                }
+                board = Random(board);
+                NotifyAll();
             }
-            board = Random(board);
-            NotifyAll();
+            else
+            {
+
+            }
         }
 
         public void PerformLeft()
         {
-            int[] buffer;
-            int pos;
-            int[] range = Enumerable.Range(0, boardSize).ToArray();
-            foreach (int i in range)
+            if (!isOver())
             {
-                pos = 0;
-                buffer = new int[boardSize];
-                foreach (int k in range)
+                int[] buffer;
+                int pos;
+                int[] range = Enumerable.Range(0, boardSize).ToArray();
+                foreach (int i in range)
                 {
-                    buffer[k] = 0;
-                }
-                // shift left
-                foreach (int j in range)
-                {
-                    if (board[i, j] != 0)
+
+                    pos = 0;
+                    buffer = new int[boardSize];
+                    foreach (int k in range)
                     {
-                        buffer[pos] = board[i, j];
-                        pos++;
+                        buffer[k] = 0;
+                    }
+                    // shift left
+                    foreach (int j in range)
+                    {
+                        if (board[i, j] != 0)
+                        {
+                            buffer[pos] = board[i, j];
+                            pos++;
+                        }
+                    }
+                    // check duplicate
+                    foreach (int j in range)
+                    {
+                        if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
+                        {
+                            buffer[j - 1] *= 2;
+                            buffer[j] = 0;
+                        }
+                    }
+                    // shift left again
+                    pos = 0;
+                    foreach (int j in range)
+                    {
+                        if (buffer[j] != 0)
+                        {
+                            board[i, pos] = buffer[j];
+                            pos++;
+                        }
+                    }
+                    for (int k = pos; k != boardSize; k++)
+                    {
+                        board[i, k] = 0;
                     }
                 }
-                // check duplicate
-                foreach (int j in range)
+
+                board = Random(board);
+                NotifyAll();
+            }
+            else
+            {
+
+            }
+        }
+
+        public bool isOver()
+        {
+            if (isFull())
+            {
+                for (int i = 0; i < 3; i++)
                 {
-                    if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
+                    for (int j = 0; j < 3; j++)
                     {
-                        buffer[j - 1] *= 2;
-                        buffer[j] = 0;
+                        if (board[i, j] == board[i+1,j] || board[i, j] == board[i, j + 1])
+                        {
+                            return false;
+                        }
                     }
                 }
-                // shift left again
-                pos = 0;
-                foreach (int j in range)
+                return true;
+            }
+            return false;
+        }
+
+        public bool isFull()
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
                 {
-                    if (buffer[j] != 0)
+                    if (board[i, j] == 0)
                     {
-                        board[i, pos] = buffer[j];
-                        pos++;
+                        return false;
                     }
-                }
-                for (int k = pos; k != boardSize; k++)
-                {
-                    board[i, k] = 0;
                 }
             }
-            board = Random(board);
-            NotifyAll();
+
+            return true;
         }
     }
 }
