@@ -10,16 +10,13 @@ namespace twozerofoureight
     {
         protected int boardSize; // default is 4
         protected int[,] board;
+        protected int[,] var = new int[6, 6];
         protected Random rand;
+        public int score = 0;
 
         public TwoZeroFourEightModel() : this(4)
         {
             // default board size is 4 
-        }
-
-        public int[,] GetBoard()
-        {
-            return board;
         }
 
         public TwoZeroFourEightModel(int size)
@@ -35,11 +32,22 @@ namespace twozerofoureight
             rand = new Random();
             board = Random(board);
             NotifyAll();
+            if (checkMax() == 16) CheckGame();
+        }
+
+        public int[,] GetBoard()
+        {
+            return board;
+        }
+
+        public string GetScore()
+        {
+            return score.ToString();
         }
 
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (checkMax() < 16)
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -67,7 +75,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift down
                 foreach (int j in rangeY)
                 {
                     if (board[j, i] != 0)
@@ -82,10 +90,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift down again
                 pos = 3;
                 foreach (int j in rangeX)
                 {
@@ -103,6 +112,7 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (checkMax() == 16) CheckGame();
         }
 
         public void PerformUp()
@@ -119,7 +129,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift up
                 foreach (int j in range)
                 {
                     if (board[j, i] != 0)
@@ -134,10 +144,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift up again
                 pos = 0;
                 foreach (int j in range)
                 {
@@ -155,6 +166,7 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (checkMax() == 16) CheckGame();
         }
 
         public void PerformRight()
@@ -173,7 +185,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift right
                 foreach (int j in rangeX)
                 {
                     if (board[i, j] != 0)
@@ -188,10 +200,11 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
-                // shift left again
+                // shift right again
                 pos = 3;
                 foreach (int j in rangeY)
                 {
@@ -209,6 +222,7 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (checkMax() == 16) CheckGame();
         }
 
         public void PerformLeft()
@@ -224,7 +238,7 @@ namespace twozerofoureight
                 {
                     buffer[k] = 0;
                 }
-                //shift left
+                // shift left
                 foreach (int j in range)
                 {
                     if (board[i, j] != 0)
@@ -239,6 +253,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -259,6 +274,60 @@ namespace twozerofoureight
             }
             board = Random(board);
             NotifyAll();
+            if (checkMax() == 16) CheckGame();
+        }
+
+        public int checkMax()
+        {
+            maxBoard = 0;
+            for (int x = 0; x < 4; x++)
+            {
+                for (int y = 0; y < 4; y++)
+                {
+                    if (board[x, y] > 0)
+                    {
+                        maxBoard++;
+                    }
+                }
+            }
+            return maxBoard;
+        }
+
+        public void CheckGame()
+        {
+            bool[] disGame = new bool[16];
+            int count = 0;
+
+            for (int i = 0; i < 16; i++) disGame[i] = true;
+
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    if (i == 0 || j == 0 || i == 5 || j == 5) var[i, j] = 0;
+                    else var[i, j] = board[i - 1, j - 1];
+                }
+            }
+
+            for (int i = 1; i < 5; i++)
+            {
+                for (int j = 1; j < 5; j++)
+                {
+                    if (var[i, j] != var[i - 1, j] && var[i, j] != var[i + 1, j] && var[i, j] != var[i, j - 1] && var[i, j] != var[i, j + 1]) disGame[count] = false;
+                    else break;
+                    count++;
+                }
+            }
+
+            for (int i = 0; i < 16; i++)
+            {
+                if (disGame[i])
+                {
+                    endGame = false;
+                    break;
+                }
+                else if (i == 15 && !disGame[15]) endGame = true;
+            }
         }
     }
 }

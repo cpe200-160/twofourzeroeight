@@ -10,6 +10,8 @@ namespace twozerofoureight
     public class Model
     {
         protected ArrayList oList;
+        public bool endGame = false;
+        public int maxBoard = 0;
 
         public Model()
         {
