@@ -20,7 +20,7 @@ namespace twozerofoureight
             mList.Add(m);
         }
 
-        // virtual keyword allow the method to be overriden
+        // The `virtual` keyword allows the method to be overridden
         public virtual void ActionPerformed(int action)
         {
             throw new NotImplementedException();

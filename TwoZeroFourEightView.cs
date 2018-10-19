@@ -14,7 +14,7 @@ namespace twozerofoureight
     {
         Model model;
         Controller controller;
-       
+
         public TwoZeroFourEightView()
         {
             InitializeComponent();
@@ -24,10 +24,41 @@ namespace twozerofoureight
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
         }
-
+        //method update your score
+        private void UpdateScore(int score)
+        {
+            lblscore.Text = Convert.ToString(score);
+        }
+        //method update game over
+        private void UpdateGameOver(bool g)    
+        {
+            if (g)
+            {
+                Gov.Text = "YOU WIN!!";
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
+                btnLeft.Enabled = false;
+                btnRight.Enabled = false;
+            }
+        }
+        //method update table is full
+        private void UpdateFullTable(bool g)
+        {
+            if (g)
+            {
+                Ftb.Text = "FULLTABLE 555";
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
+                btnLeft.Enabled = false;
+                btnRight.Enabled = false;
+            }
+        }
         public void Notify(Model m)
         {
-            UpdateBoard(((TwoZeroFourEightModel) m).GetBoard());
+            UpdateBoard(((TwoZeroFourEightModel)m).GetBoard());
+            UpdateScore(((TwoZeroFourEightModel)m).GetScore());//show score while playing
+            UpdateGameOver(((TwoZeroFourEightModel)m).CheckGameOver());//show "YOU WIN!!" when you win the game
+            UpdateFullTable(((TwoZeroFourEightModel)m).FullTable());//show "FULLTABLE 555" when yor table are full
         }
 
         private void UpdateTile(Label l, int i)
@@ -35,7 +66,9 @@ namespace twozerofoureight
             if (i != 0)
             {
                 l.Text = Convert.ToString(i);
-            } else {
+            }
+            else
+            {
                 l.Text = "";
             }
             switch (i)
@@ -59,22 +92,22 @@ namespace twozerofoureight
         }
         private void UpdateBoard(int[,] board)
         {
-            UpdateTile(lbl00,board[0, 0]);
-            UpdateTile(lbl01,board[0, 1]);
-            UpdateTile(lbl02,board[0, 2]);
-            UpdateTile(lbl03,board[0, 3]);
-            UpdateTile(lbl10,board[1, 0]);
-            UpdateTile(lbl11,board[1, 1]);
-            UpdateTile(lbl12,board[1, 2]);
-            UpdateTile(lbl13,board[1, 3]);
-            UpdateTile(lbl20,board[2, 0]);
-            UpdateTile(lbl21,board[2, 1]);
-            UpdateTile(lbl22,board[2, 2]);
-            UpdateTile(lbl23,board[2, 3]);
-            UpdateTile(lbl30,board[3, 0]);
-            UpdateTile(lbl31,board[3, 1]);
-            UpdateTile(lbl32,board[3, 2]);
-            UpdateTile(lbl33,board[3, 3]);
+            UpdateTile(lbl00, board[0, 0]);
+            UpdateTile(lbl01, board[0, 1]);
+            UpdateTile(lbl02, board[0, 2]);
+            UpdateTile(lbl03, board[0, 3]);
+            UpdateTile(lbl10, board[1, 0]);
+            UpdateTile(lbl11, board[1, 1]);
+            UpdateTile(lbl12, board[1, 2]);
+            UpdateTile(lbl13, board[1, 3]);
+            UpdateTile(lbl20, board[2, 0]);
+            UpdateTile(lbl21, board[2, 1]);
+            UpdateTile(lbl22, board[2, 2]);
+            UpdateTile(lbl23, board[2, 3]);
+            UpdateTile(lbl30, board[3, 0]);
+            UpdateTile(lbl31, board[3, 1]);
+            UpdateTile(lbl32, board[3, 2]);
+            UpdateTile(lbl33, board[3, 3]);
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -97,5 +130,83 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+        //method press WSAD button
+        private void TwoZeroFourEightView_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyData)
+            {
+                case Keys.W:
+                case Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+
+                case Keys.S:
+                case Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+
+                case Keys.A:
+                case Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+
+                case Keys.D:
+                case Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+            }
+        }
+        //method press up  arrow on keyboard
+        private void btnRight_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
+        // method press left arrow on keyboard
+        private void btnLeft_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
+        //method press up arrow on keyboard
+        private void btnUp_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
+        //method press down arrow on keyboard
+        private void btnDown_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
     }
 }
