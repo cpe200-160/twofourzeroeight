@@ -15,7 +15,7 @@ namespace twozerofoureight
         Model model;
         Controller controller;
 
-        public int sum;
+        public int sum; //add by me
 
         public TwoZeroFourEightView()
         {
@@ -60,12 +60,12 @@ namespace twozerofoureight
             }
         }
 
-        private void UpdateScore(Label l, int i)
+        private void UpdateScore(Label l, int i) //add by me
         {
             l.Text = Convert.ToString(i);
         }
 
-        private void sumScore(int[,] board)
+        private void sumScore(int[,] board) //add by me
         {
             sum = 0;
             for (int i = 0; i < 4; i++)

@@ -40,10 +40,26 @@ namespace twozerofoureight
 
         private int[,] Random(int[,] input)
         {
+            var Numbers = new List<int> { 0, 1, 2, 3 };
+            int count = 0;
             while (true)
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
+                foreach (int i in Numbers)
+                {
+                    foreach (int j in Numbers)
+                    {
+                        if (board[i, j] == 0)
+                        {
+                            count++;
+                        }
+                    }
+                }
+                if (count == 0)
+                {
+                    break;
+                }
                 if (board[x, y] == 0)
                 {
                     board[x, y] = 2;
