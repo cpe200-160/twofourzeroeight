@@ -25,6 +25,7 @@ namespace twozerofoureight
             controller = new TwoZeroFourEightController();
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            labelGameOver.Visible = false;
         }
 
         public void Notify(Model m)
@@ -98,6 +99,7 @@ namespace twozerofoureight
             UpdateTile(lbl33,board[3, 3]);
             sumScore(board);
             UpdateScore(realScore, sum);
+            checkGameOver(model);
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -120,6 +122,14 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
-        
+        private void checkGameOver(Model m)
+        {
+            if( ((TwoZeroFourEightModel)m).GetGameOver() == true )
+            {
+                labelGameOver.Visible = true;
+            }
+        }
+
     }
 }
+

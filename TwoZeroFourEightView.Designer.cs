@@ -50,6 +50,7 @@
             this.btnDown = new System.Windows.Forms.Button();
             this.realScore = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelGameOver = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl00
@@ -314,11 +315,27 @@
             this.label1.TabIndex = 23;
             this.label1.Text = "Score";
             // 
+            // labelGameOver
+            // 
+            this.labelGameOver.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.labelGameOver.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGameOver.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelGameOver.Location = new System.Drawing.Point(40, 322);
+            this.labelGameOver.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelGameOver.Name = "labelGameOver";
+            this.labelGameOver.Size = new System.Drawing.Size(257, 41);
+            this.labelGameOver.TabIndex = 24;
+            this.labelGameOver.Text = "Game Over";
+            this.labelGameOver.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelGameOver.Visible = false;
+            // 
             // TwoZeroFourEightView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 527);
+            this.Controls.Add(this.labelGameOver);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.realScore);
             this.Controls.Add(this.btnDown);
@@ -372,6 +389,7 @@
         private System.Windows.Forms.Button btnDown;
         private System.Windows.Forms.Label realScore;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelGameOver;
     }
 }
 
