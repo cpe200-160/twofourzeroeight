@@ -255,6 +255,8 @@
             this.btnLeft.Text = "<";
             this.btnLeft.UseVisualStyleBackColor = true;
             this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
+            this.btnLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.btnLeft.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             // 
             // btnUp
             // 
@@ -266,6 +268,8 @@
             this.btnUp.Text = "^";
             this.btnUp.UseVisualStyleBackColor = true;
             this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            this.btnUp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.btnUp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             // 
             // btnRight
             // 
@@ -277,6 +281,8 @@
             this.btnRight.Text = ">";
             this.btnRight.UseVisualStyleBackColor = true;
             this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
+            this.btnRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.btnRight.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             // 
             // btnDown
             // 
@@ -288,6 +294,8 @@
             this.btnDown.Text = "v";
             this.btnDown.UseVisualStyleBackColor = true;
             this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
+            this.btnDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.btnDown.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             // 
             // realScore
             // 
@@ -361,6 +369,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TwoZeroFourEightView";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.TwoZeroFourEightView_Load);
             this.ResumeLayout(false);
 
         }

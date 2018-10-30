@@ -26,6 +26,7 @@ namespace twozerofoureight
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
             labelGameOver.Visible = false;
+            KeyPreview = true;
         }
 
         public void Notify(Model m)
@@ -130,6 +131,35 @@ namespace twozerofoureight
             }
         }
 
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    btnUp.PerformClick();
+                    break;
+
+                case Keys.Down:
+                    btnDown.PerformClick();
+                    break;
+
+                case Keys.Left:
+                    btnLeft.PerformClick();
+                    break;
+
+                case Keys.Right:
+                    btnRight.PerformClick();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void TwoZeroFourEightView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
