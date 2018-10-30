@@ -11,6 +11,11 @@ namespace twozerofoureight
         protected int boardSize; // default is 4
         protected int[,] board;
         protected Random rand;
+        bool canDown = true;
+        bool canUp = true;
+        bool canLeft = true;
+        bool canRight = true;
+        protected bool gameOver = false;
 
         public TwoZeroFourEightModel() : this(4)
         {
@@ -20,6 +25,11 @@ namespace twozerofoureight
         public int[,] GetBoard()
         {
             return board;
+        }
+
+        public bool GetGameOver()
+        {
+            return gameOver;
         }
 
         public TwoZeroFourEightModel(int size)
@@ -39,10 +49,26 @@ namespace twozerofoureight
 
         private int[,] Random(int[,] input)
         {
+            var Numbers = new List<int> { 0, 1, 2, 3 };
+            int count = 0;
             while (true)
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
+                foreach (int i in Numbers)
+                {
+                    foreach (int j in Numbers)
+                    {
+                        if (board[i, j] == 0)
+                        {
+                            count++;
+                        }
+                    }
+                }
+                if (count == 0)
+                {
+                    break;
+                }
                 if (board[x, y] == 0)
                 {
                     board[x, y] = 2;
@@ -52,8 +78,12 @@ namespace twozerofoureight
             return input;
         }
 
+
+
+
         public void PerformDown()
         {
+            int count = 0; // add by me
             int[] buffer;
             int pos;
             int[] rangeX = Enumerable.Range(0, boardSize).ToArray();
@@ -83,7 +113,19 @@ namespace twozerofoureight
                     {
                         buffer[j - 1] *= 2;
                         buffer[j] = 0;
+                        count++;
                     }
+                }
+                if (count > 0)
+                {
+                    canDown = true;
+                    canUp = true;
+                    canLeft = true;
+                    canRight = true;
+                }
+                else
+                {
+                    canDown = false;
                 }
                 // shift left again
                 pos = 3;
@@ -101,12 +143,17 @@ namespace twozerofoureight
                     board[k, i] = 0;
                 }
             }
+            if (canDown == false && canUp == false && canLeft == false && canRight == false)
+            {
+                gameOver = true;
+            }
             board = Random(board);
             NotifyAll();
         }
 
         public void PerformUp()
         {
+            int count = 0; // add by me
             int[] buffer;
             int pos;
 
@@ -135,7 +182,19 @@ namespace twozerofoureight
                     {
                         buffer[j - 1] *= 2;
                         buffer[j] = 0;
+                        count++;
                     }
+                }
+                if (count > 0)
+                {
+                    canDown = true;
+                    canUp = true;
+                    canLeft = true;
+                    canRight = true;
+                }
+                else
+                {
+                    canUp = false;
                 }
                 // shift left again
                 pos = 0;
@@ -153,12 +212,17 @@ namespace twozerofoureight
                     board[k, i] = 0;
                 }
             }
+            if (canDown == false && canUp == false && canLeft == false && canRight == false)
+            {
+                gameOver = true;
+            }
             board = Random(board);
             NotifyAll();
         }
 
         public void PerformRight()
         {
+            int count = 0; // add by me
             int[] buffer;
             int pos;
 
@@ -189,8 +253,21 @@ namespace twozerofoureight
                     {
                         buffer[j - 1] *= 2;
                         buffer[j] = 0;
+                        count++;
                     }
                 }
+                if (count > 0)
+                {
+                    canDown = true;
+                    canUp = true;
+                    canLeft = true;
+                    canRight = true;
+                }
+                else
+                {
+                    canRight = false;
+                }
+
                 // shift left again
                 pos = 3;
                 foreach (int j in rangeY)
@@ -207,12 +284,17 @@ namespace twozerofoureight
                     board[i, k] = 0;
                 }
             }
+            if (canDown == false && canUp == false && canLeft == false && canRight == false)
+            {
+                gameOver = true;
+            }
             board = Random(board);
             NotifyAll();
         }
 
         public void PerformLeft()
         {
+            int count = 0; // add by me
             int[] buffer;
             int pos;
             int[] range = Enumerable.Range(0, boardSize).ToArray();
@@ -240,8 +322,21 @@ namespace twozerofoureight
                     {
                         buffer[j - 1] *= 2;
                         buffer[j] = 0;
+                        count++;
                     }
                 }
+                if (count > 0)
+                {
+                    canDown = true;
+                    canUp = true;
+                    canLeft = true;
+                    canRight = true;
+                }
+                else
+                {
+                    canLeft = false;
+                }
+
                 // shift left again
                 pos = 0;
                 foreach (int j in range)
@@ -257,8 +352,15 @@ namespace twozerofoureight
                     board[i, k] = 0;
                 }
             }
+            if (canDown == false && canUp == false && canLeft == false && canRight == false)
+            {
+                gameOver = true;
+            }
             board = Random(board);
             NotifyAll();
         }
+
+        
+
     }
 }

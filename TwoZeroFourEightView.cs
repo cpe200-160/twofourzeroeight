@@ -14,7 +14,9 @@ namespace twozerofoureight
     {
         Model model;
         Controller controller;
-       
+
+        public int sum; //add by me
+
         public TwoZeroFourEightView()
         {
             InitializeComponent();
@@ -23,6 +25,8 @@ namespace twozerofoureight
             controller = new TwoZeroFourEightController();
             controller.AddModel(model);
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            labelGameOver.Visible = false;
+            KeyPreview = true;
         }
 
         public void Notify(Model m)
@@ -57,6 +61,25 @@ namespace twozerofoureight
                     break;
             }
         }
+
+        private void UpdateScore(Label l, int i) //add by me
+        {
+            l.Text = Convert.ToString(i);
+        }
+
+        private void sumScore(int[,] board) //add by me
+        {
+            sum = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    sum += board[i, j];
+                }
+            }
+
+        }
+
         private void UpdateBoard(int[,] board)
         {
             UpdateTile(lbl00,board[0, 0]);
@@ -75,6 +98,9 @@ namespace twozerofoureight
             UpdateTile(lbl31,board[3, 1]);
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
+            sumScore(board);
+            UpdateScore(realScore, sum);
+            checkGameOver(model);
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -97,5 +123,43 @@ namespace twozerofoureight
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
 
+        private void checkGameOver(Model m)
+        {
+            if( ((TwoZeroFourEightModel)m).GetGameOver() == true )
+            {
+                labelGameOver.Visible = true;
+            }
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    btnUp.PerformClick();
+                    break;
+
+                case Keys.Down:
+                    btnDown.PerformClick();
+                    break;
+
+                case Keys.Left:
+                    btnLeft.PerformClick();
+                    break;
+
+                case Keys.Right:
+                    btnRight.PerformClick();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void TwoZeroFourEightView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
