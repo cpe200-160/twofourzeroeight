@@ -258,9 +258,10 @@
             // lblscore
             // 
             this.lblscore.AutoSize = true;
-            this.lblscore.Location = new System.Drawing.Point(353, 399);
+            this.lblscore.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblscore.Location = new System.Drawing.Point(294, 389);
             this.lblscore.Name = "lblscore";
-            this.lblscore.Size = new System.Drawing.Size(46, 17);
+            this.lblscore.Size = new System.Drawing.Size(86, 31);
             this.lblscore.TabIndex = 16;
             this.lblscore.Text = "label1";
             // 
