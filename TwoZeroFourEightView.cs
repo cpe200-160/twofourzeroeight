@@ -30,6 +30,11 @@ namespace twozerofoureight
             UpdateBoard(((TwoZeroFourEightModel)m).GetBoard());
         }
 
+        public void UpdateScore(int score)
+        {
+            lblscore.Text = Convert.ToString(score);
+        }
+
         private void UpdateTile(Label l, int i)
         {
             if (i != 0)
@@ -98,6 +103,27 @@ namespace twozerofoureight
         {
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
+
+        private void TwoZeroFourEightView_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+                case Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+                case Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                
+            }
+        }
+
 
     }
 }
