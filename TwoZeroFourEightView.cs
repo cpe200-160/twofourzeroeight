@@ -85,25 +85,23 @@ namespace twozerofoureight
             UpdateTile(lbl33, board[3, 3]);
         }
 
-        private void btnLeft_Click(object sender, EventArgs e)
+        private void TwoZeroFourEightView_KeyDown(object sender, KeyEventArgs e)
         {
-            controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                case Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+                case Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+            }
         }
-
-        private void btnRight_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
-        }
-
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.UP);
-        }
-
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            controller.ActionPerformed(TwoZeroFourEightController.DOWN);
-        }
-
     }
 }

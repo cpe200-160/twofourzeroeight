@@ -44,10 +44,6 @@
             this.lbl32 = new System.Windows.Forms.Label();
             this.lbl31 = new System.Windows.Forms.Label();
             this.lbl30 = new System.Windows.Forms.Label();
-            this.btnLeft = new System.Windows.Forms.Button();
-            this.btnUp = new System.Windows.Forms.Button();
-            this.btnRight = new System.Windows.Forms.Button();
-            this.btnDown = new System.Windows.Forms.Button();
             this.lblScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -259,50 +255,6 @@
             this.lbl30.Text = "0";
             this.lbl30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnLeft
-            // 
-            this.btnLeft.Location = new System.Drawing.Point(128, 517);
-            this.btnLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnLeft.Name = "btnLeft";
-            this.btnLeft.Size = new System.Drawing.Size(80, 69);
-            this.btnLeft.TabIndex = 16;
-            this.btnLeft.Text = "←";
-            this.btnLeft.UseVisualStyleBackColor = true;
-            this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
-            // 
-            // btnUp
-            // 
-            this.btnUp.Location = new System.Drawing.Point(210, 472);
-            this.btnUp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(80, 69);
-            this.btnUp.TabIndex = 17;
-            this.btnUp.Text = "↑";
-            this.btnUp.UseVisualStyleBackColor = true;
-            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
-            // 
-            // btnRight
-            // 
-            this.btnRight.Location = new System.Drawing.Point(292, 517);
-            this.btnRight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnRight.Name = "btnRight";
-            this.btnRight.Size = new System.Drawing.Size(80, 69);
-            this.btnRight.TabIndex = 18;
-            this.btnRight.Text = "→";
-            this.btnRight.UseVisualStyleBackColor = true;
-            this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
-            // 
-            // btnDown
-            // 
-            this.btnDown.Location = new System.Drawing.Point(210, 571);
-            this.btnDown.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(80, 69);
-            this.btnDown.TabIndex = 19;
-            this.btnDown.Text = "↓";
-            this.btnDown.UseVisualStyleBackColor = true;
-            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
-            // 
             // lblScore
             // 
             this.lblScore.AutoSize = true;
@@ -318,10 +270,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(516, 658);
             this.Controls.Add(this.lblScore);
-            this.Controls.Add(this.btnDown);
-            this.Controls.Add(this.btnRight);
-            this.Controls.Add(this.btnUp);
-            this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.lbl33);
             this.Controls.Add(this.lbl32);
             this.Controls.Add(this.lbl31);
@@ -341,6 +289,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TwoZeroFourEightView";
             this.Text = "Form1";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TwoZeroFourEightView_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,10 +313,6 @@
         private System.Windows.Forms.Label lbl32;
         private System.Windows.Forms.Label lbl31;
         private System.Windows.Forms.Label lbl30;
-        private System.Windows.Forms.Button btnLeft;
-        private System.Windows.Forms.Button btnUp;
-        private System.Windows.Forms.Button btnRight;
-        private System.Windows.Forms.Button btnDown;
         private System.Windows.Forms.Label lblScore;
     }
 }
