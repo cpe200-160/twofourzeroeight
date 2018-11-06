@@ -12,6 +12,7 @@ namespace twozerofoureight
         protected int[,] board;
         protected Random rand;
         protected int[] range;
+        protected int score;
 
         public TwoZeroFourEightModel() : this(4)
         {
@@ -31,6 +32,7 @@ namespace twozerofoureight
                 }
             }
             rand = new Random();
+            score = new int();
             // initialize board
             HandleChanges();
         }
@@ -38,6 +40,11 @@ namespace twozerofoureight
         public int[,] GetBoard()
         {
             return board;
+        }
+
+        public int Getscore()
+        {
+            return score;
         }
 
         private void AddRandomSlot()
@@ -72,6 +79,7 @@ namespace twozerofoureight
                         buffer[k] = 0;
                         lastMergedSlot = pos - 1;
                         changed = true;
+                        score += buffer[pos - 1];
                     }
                     else
                     {
