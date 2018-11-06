@@ -29,11 +29,15 @@ namespace twozerofoureight
         {
             UpdateBoard(((TwoZeroFourEightModel)m).GetBoard());
             UpdateScore(((TwoZeroFourEightModel)m).GetScore());
+            if (((TwoZeroFourEightModel)m).GetGameOver())
+            {
+                MessageBox.Show("GAME OVER!!!");
+            }
         }
 
         public void UpdateScore(int score)
         {
-            lblScore.Text = Convert.ToString(score);
+            lblScore.Text = "Score : " + Convert.ToString(score);
         }
 
         private void UpdateTile(Label l, int i)

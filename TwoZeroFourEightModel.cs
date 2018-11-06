@@ -47,6 +47,37 @@ namespace twozerofoureight
             return score;
         }
 
+        public bool GetGameOver()
+        {
+            foreach (int i in range)
+            {
+                foreach(int j in range)
+                {
+                    if(board[i, j] == 0)
+                    {
+                        return false;
+                    }
+
+                    if(j < boardSize - 1)
+                    {
+                        if(board[i, j] == board[i, j + 1])
+                        {
+                            return false;
+                        }
+                    }
+
+                    if(i < boardSize - 1)
+                    {
+                        if(board[i, j] == board[i + 1, j])
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         private void AddRandomSlot()
         {
             while (true)
