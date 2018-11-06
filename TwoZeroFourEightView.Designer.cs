@@ -258,9 +258,10 @@
             // lblScore
             // 
             this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScore.Location = new System.Drawing.Point(12, 472);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(66, 20);
+            this.lblScore.Size = new System.Drawing.Size(166, 46);
             this.lblScore.TabIndex = 20;
             this.lblScore.Text = "lblScore";
             // 
@@ -268,7 +269,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 658);
+            this.ClientSize = new System.Drawing.Size(451, 538);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.lbl33);
             this.Controls.Add(this.lbl32);
