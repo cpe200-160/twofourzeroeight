@@ -13,6 +13,8 @@ namespace twozerofoureight
         protected Random rand;
         protected int[] range;
 
+        private int score;
+
         public TwoZeroFourEightModel() : this(4)
         {
             // default board size is 4 
@@ -49,6 +51,7 @@ namespace twozerofoureight
                 if (board[x, y] == 0)
                 {
                     board[x, y] = 2;
+                    ScoreCalculate();
                     return;
                 }
             }
@@ -98,6 +101,7 @@ namespace twozerofoureight
             {
                 AddRandomSlot();
                 NotifyAll();
+                //ScoreCalculate();
             }
         }
 
@@ -191,6 +195,43 @@ namespace twozerofoureight
                 }
             }
             HandleChanges(changed);
+        }
+
+        private void ScoreCalculate()
+        {
+            score = 0;
+            foreach (int i in range)
+            {
+                foreach (int j in range)
+                {
+                    score += board[i, j];
+                }
+            }
+        }
+
+        public int GetScore()
+        {
+            return score;
+        }
+
+        public bool IsGameEnd()
+        {
+            foreach(int i in range)
+            {
+                foreach(int j in range)
+                {
+                    if (board[i, j] == 0) return false;
+                    else
+                    {
+                        if (i != 0 && board[i - 1, j] == board[i, j]) return false;
+                        else if (i != boardSize - 1 && board[i + 1, j] == board[i, j]) return false;
+                        else if (j != 0 && board[i, j - 1] == board[i, j]) return false;
+                        else if (j != boardSize - 1 && board[i, j + 1] == board[i, j]) return false;
+                    }
+                    
+                }
+            }
+            return true;
         }
     }
 }

@@ -48,6 +48,8 @@
             this.btnUp = new System.Windows.Forms.Button();
             this.btnRight = new System.Windows.Forms.Button();
             this.btnDown = new System.Windows.Forms.Button();
+            this.scorebox = new System.Windows.Forms.Label();
+            this.gameovertext = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl00
@@ -298,11 +300,34 @@
             this.btnDown.UseVisualStyleBackColor = true;
             this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
+            // scorebox
+            // 
+            this.scorebox.AutoSize = true;
+            this.scorebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scorebox.Location = new System.Drawing.Point(12, 347);
+            this.scorebox.Name = "scorebox";
+            this.scorebox.Size = new System.Drawing.Size(51, 20);
+            this.scorebox.TabIndex = 20;
+            this.scorebox.Text = "label1";
+            // 
+            // gameovertext
+            // 
+            this.gameovertext.AutoSize = true;
+            this.gameovertext.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameovertext.Location = new System.Drawing.Point(28, 127);
+            this.gameovertext.Name = "gameovertext";
+            this.gameovertext.Size = new System.Drawing.Size(244, 42);
+            this.gameovertext.TabIndex = 21;
+            this.gameovertext.Text = "GAME OVER";
+            this.gameovertext.Visible = false;
+            // 
             // TwoZeroFourEightView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 428);
+            this.Controls.Add(this.gameovertext);
+            this.Controls.Add(this.scorebox);
             this.Controls.Add(this.btnDown);
             this.Controls.Add(this.btnRight);
             this.Controls.Add(this.btnUp);
@@ -326,6 +351,7 @@
             this.Name = "TwoZeroFourEightView";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -351,6 +377,8 @@
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnRight;
         private System.Windows.Forms.Button btnDown;
+        private System.Windows.Forms.Label scorebox;
+        private System.Windows.Forms.Label gameovertext;
     }
 }
 
